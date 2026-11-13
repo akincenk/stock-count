@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stock count</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Stock count</h1>
+
+      <details id="settings-box">
+        <summary>Server settings</summary>
+        <form id="settings">
+          <label>API base URL <input name="baseUrl" required value="/api/v1" /></label>
+          <label>API key <input name="apiKey" type="password" autocomplete="off" required /></label>
+          <button>Save</button>
+        </form>
+      </details>
+
+      <section aria-labelledby="scan-h">
+        <h2 id="scan-h">Scan</h2>
+        <video id="video" playsinline muted hidden></video>
+        <button id="camera" type="button">Start camera</button>
+        <form id="manual">
+          <label>SKU code <input name="code" autocomplete="off" required maxlength="64" /></label>
+          <button>Add one</button>
+        </form>
+        <p id="scan-status" role="status"></p>
+      </section>
+
+      <section aria-labelledby="count-h">
+        <h2 id="count-h">Current count</h2>
+        <table>
+          <thead><tr><th>Code</th><th>Item</th><th>Qty</th><th></th></tr></thead>
+          <tbody id="count-rows"></tbody>
+        </table>
+        <button id="finish" type="button">Finish count</button>
+      </section>
+
+      <section aria-labelledby="queue-h">
+        <h2 id="queue-h">Waiting to sync</h2>
+        <ul id="queue"></ul>
+        <button id="sync" type="button">Sync now</button>
+        <p id="sync-status" role="status"></p>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
