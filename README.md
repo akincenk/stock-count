@@ -1,6 +1,7 @@
 # stock-count
 
 [![CI](https://github.com/akincenk/stock-count/actions/workflows/ci.yml/badge.svg)](https://github.com/akincenk/stock-count/actions/workflows/ci.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/akincenk/stock-count/badge)](https://scorecard.dev/viewer/?uri=github.com/akincenk/stock-count)
 
 A small web app for warehouse cycle counts on a phone. You scan barcodes with the camera (or type SKU codes), each scan adds one to the count, and when you finish, the counts are queued and sent to a [Warehouse-inventory-api](https://github.com/akincenk/Warehouse-inventory-api) server. If there is no signal, counts wait in the queue on the device and are sent when the connection comes back.
 
