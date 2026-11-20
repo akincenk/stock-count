@@ -4,7 +4,7 @@ Planned work after the first version. Estimates are rough. Each item has a GitHu
 
 | # | Item | Estimate |
 |---|------|----------|
-| 1 | Playwright smoke test in CI: mock API, type codes, finish, check the PUT requests | 3 h |
+| 1 | Playwright smoke test in CI: mock API, type codes, finish, check the PUT requests (done) | 3 h |
 | 2 | Installable PWA: web app manifest, icons, and a service worker that caches the app shell so it opens without signal | 3 h |
 | 3 | Locations: pick a location or bin before counting and keep it with each queued count | 2 h |
 | 4 | Show the expected `on_hand` next to the count and highlight differences before finishing | 2 h |

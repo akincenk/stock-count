@@ -18,7 +18,7 @@ Small warehouses or stock rooms that already run Warehouse-inventory-api and wan
 
 ## Stack
 
-Vite, TypeScript without a framework, Vitest with jsdom. One runtime dependency: `@zxing/browser`.
+Vite, TypeScript without a framework, Vitest with jsdom, Playwright for one end-to-end smoke test. One runtime dependency: `@zxing/browser`.
 
 ## Run
 
@@ -46,8 +46,11 @@ Warehouse-inventory-api does not send CORS headers, so the browser cannot call i
 
 ```sh
 npm test          # unit tests
+npm run test:e2e  # browser smoke test (first time: npx playwright install chromium)
 npm run build     # type check and production build
 ```
+
+The smoke test starts a small mock of Warehouse-inventory-api on port 18080 (`e2e/mock-api.ts`), runs the Vite dev server against it, counts a few codes on a phone-sized screen, finishes the count and checks the `PUT` requests and the `X-API-Key` header that reached the mock.
 
 See [ROADMAP.md](ROADMAP.md) for planned work.
 
