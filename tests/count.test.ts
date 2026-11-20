@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CountSession, normalizeCode } from "../src/count";
+import { CountSession, normalizeCode, parseQuantity } from "../src/count";
 import { MemoryStore } from "./helpers";
 
 describe("normalizeCode", () => {
@@ -7,6 +7,24 @@ describe("normalizeCode", () => {
     expect(normalizeCode("  BOLT-M8\n")).toBe("BOLT-M8");
     expect(normalizeCode("   ")).toBeNull();
     expect(normalizeCode("x".repeat(65))).toBeNull();
+  });
+});
+
+describe("parseQuantity", () => {
+  it("accepts whole numbers of zero or more", () => {
+    expect(parseQuantity("0")).toBe(0);
+    expect(parseQuantity(" 23 ")).toBe(23);
+  });
+
+  it("treats a cleared field as no value, not as zero", () => {
+    expect(parseQuantity("")).toBeNull();
+    expect(parseQuantity("   ")).toBeNull();
+  });
+
+  it("rejects fractions, negatives, exponents and huge numbers", () => {
+    for (const raw of ["2.5", "-1", "1e3", "abc", "99999999999999999999"]) {
+      expect(parseQuantity(raw)).toBeNull();
+    }
   });
 });
 
