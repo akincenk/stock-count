@@ -7,5 +7,5 @@ const api = process.env.INVENTORY_API_URL ?? "http://localhost:8000";
 export default defineConfig({
   server: { host: true, proxy: { "/api": api } },
   preview: { host: true, proxy: { "/api": api } },
-  test: { environment: "jsdom" },
+  test: { environment: "jsdom", include: ["tests/**/*.test.ts"] },
 });
