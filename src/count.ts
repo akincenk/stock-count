@@ -9,6 +9,14 @@ export function normalizeCode(raw: string): string | null {
   return code.length >= 1 && code.length <= 64 ? code : null;
 }
 
+/** Parse a quantity typed into a Qty field. Blank is not a count (Number("") would be 0). */
+export function parseQuantity(raw: string): number | null {
+  const text = raw.trim();
+  if (!/^\d+$/.test(text)) return null;
+  const n = Number(text);
+  return Number.isSafeInteger(n) ? n : null;
+}
+
 export class CountSession {
   readonly counts: Map<string, number>;
 

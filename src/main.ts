@@ -1,5 +1,5 @@
 import { loadCatalog, type Catalog, type Settings } from "./api";
-import { CountSession, normalizeCode } from "./count";
+import { CountSession, normalizeCode, parseQuantity } from "./count";
 import { CountQueue } from "./queue";
 import { startScanner } from "./scanner";
 
@@ -38,8 +38,8 @@ function renderCount(): void {
     Object.assign(input, { type: "number", min: "0", step: "1", value: String(qty), inputMode: "numeric" });
     input.setAttribute("aria-label", `Quantity for ${code}`);
     input.addEventListener("change", () => {
-      const n = Number(input.value);
-      if (Number.isInteger(n) && n >= 0) session.set(code, n);
+      const n = parseQuantity(input.value);
+      if (n !== null) session.set(code, n);
       else input.value = String(session.counts.get(code));
     });
     const del = el("button", "Remove");
