@@ -45,3 +45,16 @@ test("count two codes, finish, and sync them to the API", async ({ page }) => {
   ]);
   expect(received.every((r) => r.apiKey === API_KEY)).toBe(true);
 });
+
+test("a code over 64 characters is refused with a message, not cut and counted (#21)", async ({ page }) => {
+  await page.goto("/");
+  const code = page.getByLabel("SKU code");
+  // The first 64 characters alone would be a valid, different code.
+  await code.fill("A12-005".padEnd(64, "0") + "777777");
+  await code.press("Enter");
+  await expect(page.locator("#scan-status")).toHaveText("Code is longer than 64 characters (70), not counted.");
+  await code.fill("   ");
+  await code.press("Enter");
+  await expect(page.locator("#scan-status")).toHaveText("Empty code, not counted.");
+  await expect(page.locator("#count-rows tr")).toHaveCount(0);
+});
