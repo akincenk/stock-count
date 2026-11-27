@@ -52,7 +52,7 @@ npm run build     # type check and production build
 
 The smoke test starts a small mock of Warehouse-inventory-api on port 18080 (`e2e/mock-api.ts`), runs the Vite dev server against it, counts a few codes on a phone-sized screen, finishes the count and checks the `PUT` requests and the `X-API-Key` header that reached the mock.
 
-See [ROADMAP.md](ROADMAP.md) for planned work.
+See [ROADMAP.md](ROADMAP.md) for planned work and [CONTRIBUTING.md](CONTRIBUTING.md) for how to send a change.
 
 ## License
 
