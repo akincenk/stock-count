@@ -78,7 +78,12 @@ function renderQueue(): void {
 
 function add(raw: string): void {
   const code = normalizeCode(raw);
-  if (!code) return;
+  if (!code) {
+    // No maxlength on the input: a cut code could match another SKU (#21), so say why instead.
+    const n = raw.trim().length;
+    $("scan-status").textContent = n ? `Code is longer than 64 characters (${n}), not counted.` : "Empty code, not counted.";
+    return;
+  }
   const qty = session.add(code);
   $("scan-status").textContent = `${code}: ${qty}`;
   renderCount();
