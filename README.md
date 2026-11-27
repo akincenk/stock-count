@@ -12,6 +12,7 @@ Small warehouses or stock rooms that already run Warehouse-inventory-api and wan
 ## How it works
 
 - **Scanning**: uses the browser's `BarcodeDetector` when available. Otherwise it loads [ZXing](https://github.com/zxing-js/browser) (only then, so the main bundle stays small). The same barcode held in front of the camera is counted once; take it away or scan another one to count again.
+- **Codes**: 1 to 64 characters, the limit of the API. A longer scan or typed code is refused with a message and not counted; it is never cut to 64 characters, because the shorter code could belong to another item.
 - **Count in progress**: kept in `localStorage`, so a reload or a locked phone does not lose it. Quantities can be edited by hand.
 - **Sync**: each finished count becomes `PUT /api/v1/inventory/{id}` with `{"on_hand": <counted>}`. A count replaces the stored quantity; it does not add to it.
 - **Errors**: if the network is down or the server returns 5xx, 408 or 429, syncing stops and the rest of the queue is tried later (on the `online` event or with "Sync now"). If the server rejects a count (unknown SKU, SKU without an inventory row, other 4xx), that count stays in the queue marked as rejected until someone retries or drops it.
